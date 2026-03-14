@@ -7,3 +7,4 @@ redis==5.2.1
 celery==5.4.0
 pydantic-settings==2.7.0
 python-dotenv==1.0.1
+requests==2.32.3

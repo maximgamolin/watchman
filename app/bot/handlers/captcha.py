@@ -14,7 +14,7 @@ router = Router(name='captcha')
 logger = logging.getLogger(__name__)
 
 
-@router.message(F.chat.type.in_({'group', 'supergroup'}), F.from_user, ~F.from_user.is_bot)
+@router.message(F.chat.type.in_({'group', 'supergroup'}), F.from_user, ~F.from_user.is_bot, ~F.sender_chat)
 async def group_message_handler(
     message: Message,
     session: AsyncSession,

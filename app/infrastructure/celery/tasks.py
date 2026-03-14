@@ -101,6 +101,9 @@ def cleanup_expired_captchas() -> None:
             # Удаляем сообщение бота с капчей из группы
             _delete_telegram_message(group_id, captcha_message_id)
 
+            # Удаляем исходное сообщение пользователя из группы
+            _delete_telegram_message(group_id, original_message_id)
+
             # Сохраняем исходное сообщение пользователя в БД
             _store_deleted_message_in_db(
                 session=db_session,

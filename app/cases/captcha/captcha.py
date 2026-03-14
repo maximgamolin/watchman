@@ -78,7 +78,13 @@ class CaptchaCase:
             # Сессия активна — проверяем ответ пользователя
             answer = text.strip()
             if answer == str(captcha_session.expected_number):
-                await self._pass_captcha(member, user_id, group_id)
+                await self._pass_captcha(
+                    member=member,
+                    user_id=user_id,
+                    group_id=group_id,
+                    answer_message_id=message_id,
+                    captcha_message_id=captcha_session.captcha_message_id,
+                )
             else:
                 # Неверный ответ или произвольный текст — удаляем и сохраняем в лог
                 await self._delete_message_and_store(
@@ -165,8 +171,10 @@ class CaptchaCase:
         member: GroupMember,
         user_id: UserID,
         group_id: GroupID,
+        answer_message_id: MessageID,
+        captcha_message_id: MessageID,
     ) -> None:
-        """Помечает участника как прошедшего капчу и удаляет сессию из Redis."""
+        """Помечает участника как прошедшего капчу, удаляет оба сообщения и сессию из Redis."""
         logger.info(
             '[CaptchaCase._pass_captcha] User %s passed captcha in group %s', user_id, group_id,
         )
@@ -175,6 +183,16 @@ class CaptchaCase:
         await self._uow.commit()
 
         await self._uow.delete_captcha(user_id, group_id)
+
+        # Удаляем сообщение пользователя с ответом и сообщение бота с капчей
+        try:
+            await self._bot.delete_message(chat_id=int(group_id), message_id=int(answer_message_id))
+        except Exception as exc:
+            logger.warning('[CaptchaCase._pass_captcha] Could not delete answer msg=%s: %s', answer_message_id, exc)
+        try:
+            await self._bot.delete_message(chat_id=int(group_id), message_id=int(captcha_message_id))
+        except Exception as exc:
+            logger.warning('[CaptchaCase._pass_captcha] Could not delete captcha msg=%s: %s', captcha_message_id, exc)
 
     async def _delete_message_and_store(
         self,

@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic, Iterable
 
-from app.framework.data_access_layer.lazy import LazyWrapper
+from framework.data_access_layer.lazy import LazyWrapper
 
 T = TypeVar('T')
 

@@ -1,11 +1,11 @@
 import abc
 from typing import Optional, TypeVar, Union, Iterable, Generic, Any
 
-from app.framework.data_access_layer.basic import EntityTypeVar
-from app.framework.data_access_layer.db_result_generator import DBResultGenerator
-from app.framework.data_access_layer.order_object.base import ABSOrderObject
-from app.framework.data_access_layer.query_object.base import ABSQueryObject
-from app.framework.domain.abs import IDTO, IEntity
+from framework.data_access_layer.basic import EntityTypeVar
+from framework.data_access_layer.db_result_generator import DBResultGenerator
+from framework.data_access_layer.order_object.base import ABSOrderObject
+from framework.data_access_layer.query_object.base import ABSQueryObject
+from framework.domain.abs import IDTO, IEntity
 
 ORMModel = TypeVar('ORMModel')
 ISessionTypeVar = TypeVar('ISessionTypeVar')

@@ -2,14 +2,14 @@ from abc import ABC
 from typing import Iterable, Optional, Callable, Any
 
 from app.exceptions.orm import NotFoundException
-from app.framework.data_access_layer.basic import EntityTypeVar
-from app.framework.data_access_layer.db_result_generator import DBResultGenerator
-from app.framework.data_access_layer.order_object.base import ABSOrderObject
-from app.framework.data_access_layer.order_object.values import ASC, DESC
-from app.framework.data_access_layer.query_object.base import ABSQueryObject
-from app.framework.data_access_layer.query_object.values import IN, GTE
-from app.framework.data_access_layer.repository import ABSRepository, ORMModel, NoQueryBuilderRepositoryMixin
-from app.framework.data_access_layer.values import Empty
+from framework.data_access_layer.basic import EntityTypeVar
+from framework.data_access_layer.db_result_generator import DBResultGenerator
+from framework.data_access_layer.order_object.base import ABSOrderObject
+from framework.data_access_layer.order_object.values import ASC, DESC
+from framework.data_access_layer.query_object.base import ABSQueryObject
+from framework.data_access_layer.query_object.values import IN, GTE
+from framework.data_access_layer.repository import ABSRepository, ORMModel, NoQueryBuilderRepositoryMixin
+from framework.data_access_layer.values import Empty
 
 
 class QoOrmMapperLine:
@@ -17,7 +17,7 @@ class QoOrmMapperLine:
     Хранит в себе настройку как конвертировать поле из ABSQueryObject в поле для фильтрации валидного для ORM
 
     Examples:
-        >>> from app.framework.data_access_layer.query_object.base import ABSQueryObject
+        >>> from framework.data_access_layer.query_object.base import ABSQueryObject
         >>> from dataclasses import dataclass
         >>> from typing import NewType
         >>>
@@ -67,7 +67,7 @@ class OoOrmMapperLine:
     Хранит в себе настройку, как конвертировать поле из ABSOrderObject в поле для сортировки ORM model
 
     Examples:
-        >>> from app.framework.data_access_layer.order_object.base import ABSOrderObject
+        >>> from framework.data_access_layer.order_object.base import ABSOrderObject
         >>> from dataclasses import dataclass
         >>> from datetime import datetime
         >>> from typing import NewType

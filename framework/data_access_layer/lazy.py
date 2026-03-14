@@ -1,6 +1,6 @@
 from typing import Callable, TypeVar, Generic, Union, Generator, Any
 
-from app.framework.data_access_layer.db_result_generator import DBResultGenerator
+from framework.data_access_layer.db_result_generator import DBResultGenerator
 
 T = TypeVar('T')
 
@@ -11,7 +11,7 @@ class LazyWrapper(Generic[T]):
     на вход принимает метод и параметры для этого метода
 
     Example:
-        >>> from app.framework.data_access_layer.query_object.base import ABSQueryObject
+        >>> from framework.data_access_layer.query_object.base import ABSQueryObject
         >>> from dataclasses import dataclass
         >>>
         >>>

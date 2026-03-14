@@ -40,15 +40,3 @@ async def group_message_handler(
             '[group_message_handler] Unhandled error user=%s group=%s: %s',
             dto.user_id, dto.group_id, str(exc),
         )
-
-
-@router.message()
-async def debug_unhandled_message(message: Message) -> None:
-    # Диагностика: ловит всё, что не прошло основной фильтр
-    logger.info(
-        '[DEBUG] chat_type=%s from_user=%s is_bot=%s text=%r',
-        message.chat.type,
-        message.from_user,
-        message.from_user.is_bot if message.from_user else None,
-        (message.text or '')[:50],
-    )

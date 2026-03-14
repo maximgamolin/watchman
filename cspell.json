@@ -1,0 +1,11 @@
+{
+  "version": "0.2",
+  "ignoreRegExpList": [
+    "\\p{Script=Cyrillic}+"
+  ],
+  "ignorePaths": [
+    "**/__pycache__/**",
+    "**/*.pyc",
+    "alembic/versions/**"
+  ]
+}

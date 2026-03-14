@@ -9,8 +9,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Venv изолирует зависимости и гарантирует корректные shebang-пути
+RUN python -m venv /venv
 COPY requirements.txt .
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+RUN /venv/bin/pip install --no-cache-dir -r requirements.txt
 
 
 # ── Stage 2: runtime ─────────────────────────────────────────────────────────
@@ -23,11 +25,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Копируем установленные пакеты из builder
-COPY --from=builder /install /usr/local
+# Копируем venv целиком — все пакеты и скрипты (alembic, celery) с корректными путями
+COPY --from=builder /venv /venv
 
 # Копируем исходный код
 COPY . .
 
+ENV PATH="/venv/bin:$PATH"
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1

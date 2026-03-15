@@ -18,5 +18,6 @@ class RedisMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: dict[str, Any],
     ) -> Any:
-        data['redis_client'] = self._redis
+        data['redis_client'] = self._redis 
         return await handler(event, data)
+
